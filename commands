@@ -4,6 +4,15 @@ npm init --yes
 //install express
 npm install express
 
+//prisma - cli tool
+npm i typescript ts-node @types/node prisma --save-dev
+npx prisma init
+npx prisma format //fixes formatting and errrors
+
+//prisma client
+npm i @prisma/client --save
+npx prisma migrate dev --name init
+
 //git
 git init
 git add .

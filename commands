@@ -3,6 +3,7 @@ npm init --yes
 
 //install express
 npm install express
+npm i --save-dev @types/express
 
 //prisma - cli tool
 npm i typescript ts-node @types/node prisma --save-dev
@@ -12,6 +13,14 @@ npx prisma format //fixes formatting and errrors
 //prisma client
 npm i @prisma/client --save
 npx prisma migrate dev --name init
+
+//morgan
+npm i morgan --save
+npm i --save-dev @types/morgan
+
+//cors
+npm i cors --save
+npm i --save-dev @types/cors
 
 //git
 git init

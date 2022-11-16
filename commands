@@ -13,6 +13,7 @@ npx prisma format //fixes formatting and errrors
 //prisma client
 npm i @prisma/client --save
 npx prisma migrate dev --name init
+npx prisma studio
 
 //morgan
 npm i morgan --save

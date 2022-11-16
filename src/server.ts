@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import router from './router';
 import { verifyToken } from './modules/auth';
+import { createNewUser, signIn } from './handlers/user';
 
 const app = express();
 
@@ -24,5 +25,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', verifyToken, router);
+
+app.post('/user', createNewUser);
+app.post('/signin', signIn);
 
 export default app;

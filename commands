@@ -22,6 +22,9 @@ npm i --save-dev @types/morgan
 npm i cors --save
 npm i --save-dev @types/cors
 
+//jwt bcrypt dotenv
+npm i jsonwebtoken bcrypt dotenv --save
+
 //git
 git init
 git add .

@@ -26,6 +26,9 @@ npm i --save-dev @types/cors
 //jwt bcrypt dotenv
 npm i jsonwebtoken bcrypt dotenv --save
 
+//express-validator
+npm i express-validator --save
+
 //git
 git init
 git add .

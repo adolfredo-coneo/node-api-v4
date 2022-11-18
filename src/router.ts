@@ -1,6 +1,14 @@
 import { UPDATE_STATUS } from '@prisma/client';
 import { Router } from 'express';
-import { body, check, oneOf } from 'express-validator';
+import { body } from 'express-validator';
+
+import {
+  createProduct,
+  deleteProduct,
+  getProduct,
+  getProducts,
+  updateProduct,
+} from './handlers/product';
 import { checkValidationResults } from './modules/middlewares';
 
 const router = Router();
@@ -8,29 +16,26 @@ const router = Router();
 /**
  * Products
  */
-router.get('/product', (req, res) => {
-  //res.status(200);
-  res.json({ message: req.body.user });
-});
-router.get('/product/:id', (req, res) => {});
+router.get('/product', getProducts);
+router.get('/product/:id', getProduct);
 router.put(
   '/product/:id',
   body('name').isString(),
   checkValidationResults,
-  (req, res) => {}
+  updateProduct
 );
 router.post(
   '/product',
   body('name').isString(),
   checkValidationResults,
-  (req, res) => {}
+  createProduct
 );
-router.delete('/product/:id', (req, res) => {});
+router.delete('/product/:id', deleteProduct);
 
 /**
  * Update
  */
-router.get('/update', (req, res) => {});
+router.get('/updates/:id', (req, res) => {});
 router.get('/update/:id', (req, res) => {});
 router.put(
   '/update/:id',

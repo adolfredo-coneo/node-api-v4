@@ -9,6 +9,13 @@ import {
   getProducts,
   updateProduct,
 } from './handlers/product';
+import {
+  createUpdate,
+  deleteUpdate,
+  getUpdate,
+  getUpdatesByUser,
+  updateUpdate,
+} from './handlers/update';
 import { checkValidationResults } from './modules/middlewares';
 
 const router = Router();
@@ -35,25 +42,26 @@ router.delete('/product/:id', deleteProduct);
 /**
  * Update
  */
-router.get('/updates/:id', (req, res) => {});
-router.get('/update/:id', (req, res) => {});
+router.get('/updates', getUpdatesByUser);
+router.get('/update/:id', getUpdate);
 router.put(
   '/update/:id',
   body('title').optional().isString(),
   body('body').optional().isString(),
-  body('status').isIn(Object.values(UPDATE_STATUS)),
+  body('status').isIn(Object.values(UPDATE_STATUS)).optional(),
   body('version').optional(),
   checkValidationResults,
-  (req, res) => {}
+  updateUpdate
 );
 router.post(
   '/update',
-  body('title').isString(),
-  body('body').isString(),
+  body('title').exists().isString(),
+  body('body').exists().isString(),
+  body('productId').exists().isString(),
   checkValidationResults,
-  (req, res) => {}
+  createUpdate
 );
-router.delete('/update/:id', (req, res) => {});
+router.delete('/update/:id', deleteUpdate);
 
 /**
  * Update points

@@ -56,6 +56,16 @@ export const getUpdate = async (req: Request, res: Response) => {
 //Create an update
 export const createUpdate = async (req: Request, res: Response) => {
   try {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: req.body.productId,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
     const update = await prisma.update.create({
       data: {
         title: req.body.title,
@@ -63,11 +73,7 @@ export const createUpdate = async (req: Request, res: Response) => {
         status: req.body.status,
         version: req.body.version,
         assetUrl: req.body.assetUrl,
-        product: {
-          connect: {
-            id: req.params.id,
-          },
-        },
+        productId: req.body.productId,
       },
     });
 
@@ -80,6 +86,24 @@ export const createUpdate = async (req: Request, res: Response) => {
 //Update an update
 export const updateUpdate = async (req: Request, res: Response) => {
   try {
+    const product = await prisma.product.findFirst({
+      where: {
+        belongsToId: req.body.user.id,
+        updates: {
+          some: {
+            id: req.params.id,
+          },
+        },
+      },
+      include: {
+        updates: true,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: 'Update not found' });
+    }
+
     const update = await prisma.update.update({
       where: {
         id: req.params.id,
@@ -102,6 +126,24 @@ export const updateUpdate = async (req: Request, res: Response) => {
 //Delete an update
 export const deleteUpdate = async (req: Request, res: Response) => {
   try {
+    const product = await prisma.product.findFirst({
+      where: {
+        belongsToId: req.body.user.id,
+        updates: {
+          some: {
+            id: req.params.id,
+          },
+        },
+      },
+      include: {
+        updates: true,
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: 'Update not found' });
+    }
+
     const update = await prisma.update.delete({
       where: {
         id: req.params.id,

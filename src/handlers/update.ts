@@ -31,7 +31,9 @@ export const getUpdatesByUser = async (req: Request, res: Response) => {
       },
     });
 
-    const updates = product.map((product) => product.updates);
+    const updates = product.reduce((acc, cur) => {
+      return [...acc, ...cur.updates];
+    }, []);
     res.json({ data: updates });
   } catch (error) {
     res.status(500).json({ error: error.message });

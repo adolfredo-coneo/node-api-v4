@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import prisma from '../modules/db';
 
 //Get all products
@@ -28,15 +28,23 @@ export const getProduct = async (req: Request, res: Response) => {
 };
 
 //Create a product
-export const createProduct = async (req: Request, res: Response) => {
-  const product = await prisma.product.create({
-    data: {
-      name: req.body.name,
-      belongsToId: req.body.user.id,
-    },
-  });
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const product = await prisma.product.create({
+      data: {
+        name: req.body.name,
+        belongsToId: req.body.user.id,
+      },
+    });
 
-  res.json({ data: product });
+    res.json({ data: product });
+  } catch (error) {
+    next(error);
+  }
 };
 
 //Update a product

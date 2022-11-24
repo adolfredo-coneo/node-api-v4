@@ -1,11 +1,15 @@
+import { NextFunction, Request, Response } from 'express';
 import { comparePassword, generateToken, hashPassword } from '../modules/auth';
 import prisma from '../modules/db';
 
-export const createNewUser = async (req, res) => {
-  const { username, password } = req.body;
-  const hashedPassword = await hashPassword(password);
-
+export const createNewUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
+    const { username, password } = req.body;
+    const hashedPassword = hashPassword(password);
     const user = await prisma.user.create({
       data: {
         username,
@@ -16,7 +20,8 @@ export const createNewUser = async (req, res) => {
     const token = generateToken(user);
     res.json({ token });
   } catch (error) {
-    console.log(error);
+    error.type = 'input';
+    next(error);
   }
 };
 

@@ -1,10 +1,11 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
 import router from './router';
 import { verifyToken } from './modules/auth';
 import { createNewUser, signIn } from './handlers/user';
+import { handleError } from './modules/error';
 
 const app = express();
 
@@ -28,5 +29,7 @@ app.use('/api', verifyToken, router);
 
 app.post('/user', createNewUser);
 app.post('/signin', signIn);
+
+app.use(handleError);
 
 export default app;

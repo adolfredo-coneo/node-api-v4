@@ -16,6 +16,7 @@ import {
   getUpdatesByUser,
   updateUpdate,
 } from './handlers/update';
+import { handleError } from './modules/error';
 import { checkValidationResults } from './modules/middlewares';
 
 const router = Router();
@@ -84,5 +85,7 @@ router.post(
   (req, res) => {}
 );
 router.delete('/updatepoint/:id', (req, res) => {});
+
+router.use(handleError);
 
 export default router;

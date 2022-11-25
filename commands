@@ -29,6 +29,10 @@ npm i jsonwebtoken bcrypt dotenv --save
 //express-validator
 npm i express-validator --save
 
+//lodash merge
+npm i lodash.merge --save
+npm i --save-dev @types/lodash.merge
+
 //git
 git init
 git add .
@@ -36,3 +40,6 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/adolfredo-coneo/node-api-v4.git
 git push -u origin main
+
+//registry
+npm config set registry https://registry.npmjs.org/

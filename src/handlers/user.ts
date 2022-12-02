@@ -9,7 +9,7 @@ export const createNewUser = async (
 ) => {
   try {
     const { username, password } = req.body;
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
     const user = await prisma.user.create({
       data: {
         username,
@@ -39,7 +39,7 @@ export const signIn = async (req, res) => {
       return res.status(404).json({ message: 'Invalid data' });
     }
 
-    const isPasswordValid = comparePassword(password, user.password);
+    const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid password' });
     }

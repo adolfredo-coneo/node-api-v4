@@ -43,3 +43,7 @@ git push -u origin main
 
 //registry
 npm config set registry https://registry.npmjs.org/
+
+//jest supertest
+npm i supertest @types/supertest jest @types/jest ts-jest --save-dev
+npx ts-jest config:init

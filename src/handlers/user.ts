@@ -50,3 +50,12 @@ export const signIn = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json({ data: users });
+  } catch (error) {
+    console.log(error);
+  }
+};

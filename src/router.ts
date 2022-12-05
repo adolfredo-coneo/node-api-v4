@@ -16,6 +16,7 @@ import {
   getUpdatesByUser,
   updateUpdate,
 } from './handlers/update';
+import { getUsers } from './handlers/user';
 import { handleError } from './modules/error';
 import { checkValidationResults } from './modules/middlewares';
 
@@ -39,6 +40,11 @@ router.post(
   createProduct
 );
 router.delete('/product/:id', deleteProduct);
+
+/**
+ * Users
+ */
+router.get('/users', getUsers);
 
 /**
  * Update
